@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Hospital - Book Your Appointment</title>
+    <meta name="description" content="Book appointments with our experienced doctors at MediCare Hospital. Easy online booking system with available time slots.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>MediCare Hospital</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#doctors" class="nav-link">Doctors</a>
+                <a href="#book" class="nav-link">Book Appointment</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Your Health, Our Priority</h1>
+                <p>Book appointments with our experienced doctors easily and conveniently. Quality healthcare at your fingertips.</p>
+                <button class="cta-button" onclick="scrollToSection('book')">
+                    <i class="fas fa-calendar-plus"></i>
+                    Book Appointment
+                </button>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-user-md"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose MediCare?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Easy Scheduling</h3>
+                    <p>Book appointments 24/7 with real-time availability</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-md"></i>
+                    <h3>Expert Doctors</h3>
+                    <p>Board-certified specialists with years of experience</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access our services from any device, anywhere</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure & Private</h3>
+                    <p>Your health information is safe and confidential</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="doctors-section">
+        <div class="container">
+            <h2>Our Doctors</h2>
+            <div class="filter-container">
+                <label for="specialty-filter">Filter by Specialty:</label>
+                <select id="specialty-filter" onchange="filterDoctors()">
+                    <option value="">All Specialties</option>
+                </select>
+            </div>
+            <div id="doctors-grid" class="doctors-grid">
+                <!-- Doctors will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="book" class="booking-section">
+        <div class="container">
+            <h2>Book an Appointment</h2>
+            <div class="booking-container">
+                <div class="booking-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <span>Select Doctor</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <span>Choose Date & Time</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <span>Patient Details</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <span>Confirmation</span>
+                    </div>
+                </div>
+
+                <div class="booking-form-container">
+                    <!-- Step 1: Select Doctor -->
+                    <div id="step-1" class="booking-step active">
+                        <h3>Select a Doctor</h3>
+                        <div id="booking-doctors-grid" class="booking-doctors-grid">
+                            <!-- Doctors for booking will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Choose Date & Time -->
+                    <div id="step-2" class="booking-step">
+                        <h3>Choose Date & Time</h3>
+                        <div class="selected-doctor-info">
+                            <div id="selected-doctor-card"></div>
+                        </div>
+                        <div class="datetime-selection">
+                            <div class="date-selection">
+                                <label for="appointment-date">Select Date:</label>
+                                <input type="date" id="appointment-date" onchange="loadTimeSlots()">
+                            </div>
+                            <div class="time-slots-container">
+                                <h4>Available Time Slots</h4>
+                                <div id="time-slots" class="time-slots">
+                                    <!-- Time slots will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Patient Details -->
+                    <div id="step-3" class="booking-step">
+                        <h3>Patient Information</h3>
+                        <form id="patient-form" class="patient-form">
+                            <div class="form-group">
+                                <label for="patient-name">Full Name *</label>
+                                <input type="text" id="patient-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-email">Email Address *</label>
+                                <input type="email" id="patient-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-phone">Phone Number *</label>
+                                <input type="tel" id="patient-phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-reason">Reason for Visit</label>
+                                <textarea id="appointment-reason" rows="3" placeholder="Brief description of your symptoms or reason for the appointment"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 4: Confirmation -->
+                    <div id="step-4" class="booking-step">
+                        <h3>Confirmation</h3>
+                        <div id="appointment-summary" class="appointment-summary">
+                            <!-- Appointment summary will be displayed here -->
+                        </div>
+                    </div>
+
+                    <!-- Navigation buttons -->
+                    <div class="booking-navigation">
+                        <button id="prev-btn" class="btn btn-secondary" onclick="previousStep()" style="display: none;">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button id="next-btn" class="btn btn-primary" onclick="nextStep()" style="display: none;">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button id="book-btn" class="btn btn-success" onclick="bookAppointment()" style="display: none;">
+                            <i class="fas fa-check"></i> Confirm Booking
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-check-circle"></i> Appointment Booked Successfully!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Your appointment has been confirmed. You will receive a confirmation email shortly.</p>
+                <div id="booking-details"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">Close</button>
+                <button class="btn btn-secondary" onclick="bookAnother()">Book Another</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Processing your request...</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-heartbeat"></i> MediCare Hospital</h4>
+                    <p>Providing quality healthcare services with compassion and excellence.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1-555-MEDICARE</p>
+                    <p><i class="fas fa-envelope"></i> info@medicare.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#doctors">Doctors</a>
+                    <a href="#book">Book Appointment</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MediCare Hospital. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
